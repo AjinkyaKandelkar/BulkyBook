@@ -1,0 +1,102 @@
+﻿@model BulkyBook.Models.ViewModels.ShoppingCartVM
+@using Microsoft.Extensions.Options
+@inject IOptions<BulkyBook.Utility.StripeSettings> Stripe
+
+
+<form method="post">
+    <div class="container">
+
+        <div class="row mt-5">
+            <div class="col">
+                <div class="card" style="border-radius:0;">
+                    <div class="card-header bg-primary text-white" style="border-radius:0;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                Order Summary
+                            </div>
+                            <div>
+                                <a asp-controller="Home" asp-action="Cart" class="btn btn-outline-info"> Back to Cart </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="text-primary text-uppercase"> pickup details: </h4>
+
+                                <div class="mb-2" > <input class="form-control" asp-for="OrderHeader.Name" hidden />
+                                    @Model.OrderHeader.Name    
+                                </div>
+
+                                <div class="mb-2"> 
+                                    <input class="form-control" asp-for="OrderHeader.PhoneNumber" hidden /> 
+                                    @Model.OrderHeader.PhoneNumber
+                                </div>
+                                <div class="mb-2"> <input class="form-control" asp-for="OrderHeader.StreetAddress" hidden /> </div>
+
+                                <div class="mb-2"> 
+                                    <input class="form-control" asp-for="OrderHeader.City" hidden/> 
+                                    @Model.OrderHeader.City
+                                </div>
+                                <div class="mb-2"> 
+                                    <input class="form-control" asp-for="OrderHeader.State" hidden/> 
+                                    @Model.OrderHeader.State
+                                </div>
+                                <div class="mb-2"> 
+                                    <input class="form-control" asp-for="OrderHeader.PostalCode" hidden /> 
+                                    @Model.OrderHeader.PostalCode
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="text-primary text-uppercase"> order details: </h4>
+
+                                @foreach(var Obj in Model.ListCart)
+                                {
+                                    <div class=" d-flex justify-content-between border p-2">
+                                        <div class="">
+                                            <div class=""> 
+                                                @Obj.SLProduct.Title 
+                                            </div>    
+                                            <small class="text-muted">
+                                                Quantity : @Obj.Count
+                                            </small>
+
+                                        </div>
+                                        <div class="text-muted">
+                                            @((Obj.Price * Obj.Count).ToString("C"))
+                                        </div>
+                                    </div> 
+                                }
+                                <div class="text-info d-flex justify-content-between border p-2">
+                                    <div class="">
+                                        Total (USD)
+                                    </div>
+                                    <div class="">
+                                        @Model.OrderHeader.OrderTotal.ToString("C")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                Estimate Arrival Date : &nbsp; @DateTime.Now.AddDays(7).ToString("dd-MMMM") - @DateTime.Now.AddDays(14).ToString("dd-MMMM")
+                            </div>
+                            <div>
+                                <button  class="btn btn-primary text-uppercase" type="submit" style="width:15rem; border-radius:0; font-size:small">
+                                    Place order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,85 @@
+﻿@model Company
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-8" >
+            <form method="post" asp-action="Upsert" class=" text-white">
+                <div class="border p-3 mt-4 row  bg-dark">
+                    <div class="row pb-2">
+                        <h2 class="text-primary"> @(Model.Id != 0 ? "Update" : "Create") Company </h2>
+                    </div>
+                    <input asp-for="Id" hidden />
+
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Name"> Name </label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="StreetAddress "> Street </label>
+                            <input asp-for="StreetAddress" class="form-control" />
+                            <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="City"> City </label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="State"> State </label>
+                            <input asp-for="State" class="form-control" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Postalcode"> Postalcode </label>
+                            <input asp-for="Postalcode" class="form-control" />
+                            <span asp-validation-for="Postalcode" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="PhoneNumber"> Contact </label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 text-end mt-2">
+                        @if (Model.Id != 0)
+                        {
+                            <button class="btn btn-success me-2" type="submit" style="width:120px"> Update </button>
+                        }
+                        else
+                        {
+                            <button class=" btn btn-success me-2" type="submit" style="width:120px"> Add </button>
+
+                        }
+                        <a class="btn btn-warning" asp-area="Admin" asp-controller="Company" asp-action="Index" style="width:120px"> Back </a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    }

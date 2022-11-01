@@ -1,0 +1,66 @@
+﻿@model BulkyBook.Models.ViewModels.ShoppingCartVM
+<form method="post">
+    <div class="container">
+
+        <div class="row mt-5">
+            <div class="col">
+                <div class="card" style="border-radius:0;">
+                    <div class="card-header bg-primary text-white" style="border-radius:0;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                Shopping cart
+                            </div>
+                            <div>
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-info"> Continue Shopping </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        @foreach(var cart in Model.ListCart)
+                        {
+                            <div class="row">
+                                <div class="col-sm-2 text-center">
+                                    <img src="@cart.SLProduct.ImgUrl" class="img-thumbnail img-fluid" style="width:5rem;" />
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="">
+                                        @cart.SLProduct.Title
+                                    </div>
+                                    <small class="text-muted" style="font-size:small">
+                                        
+                                        @Html.Raw(cart.SLProduct.Description.Substring(0, 200))
+                                    </small>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <strong>  @cart.Price.ToString("C") <span class="text-muted"> X </span>   @cart.Count </strong>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <a asp-action="Plus" asp-route-id="@cart.Id" class="btn btn-primary" style="border-radius:0;"> <i class="bi bi-plus"></i> </a>
+                                        
+                                    <a asp-action="minus" asp-route-id="@cart.Id" class="btn btn-warning" style="border-radius:0;"> <i class="bi bi-dash"></i> </a>
+                                </div>
+                                <div class="col-sm-1 text-center">
+                                    <a asp-action="remove" asp-route-id="@cart.Id" class="btn btn-danger" style="border-radius:0;"> <i class="bi bi-trash"></i> </a>
+                                </div>
+
+                            </div>
+                            <hr />
+                        }
+                        <div class="row text-info d-flex justify-content-end">
+                            <div class="col-md-4 d-flex justify-content-around ">
+                                <div> Total (USD) </div>
+                                <div> @Model.OrderHeader.OrderTotal.ToString("C") </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-footer text-end">
+                        <a class="btn btn-success text-uppercase" asp-action="Summary" style="border-radius:0;   width:250px"> Summary </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

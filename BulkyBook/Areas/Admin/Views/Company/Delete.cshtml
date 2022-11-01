@@ -1,0 +1,130 @@
+﻿@model BulkyBook.Models.ViewModels.ProductViewModel
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-8">
+            <form method="post" asp-action="Delete" enctype="multipart/form-data">
+
+                <div class="border p-3 mt-4 row">
+                    <div class="row pb-2">
+                        <h2 class="text-primary">Delete Product </h2>
+                    </div>
+                    <input asp-for="product.Id" hidden />
+                    <input asp-for="product.ImgUrl" hidden />
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Title"> Title </label>
+                            <input asp-for="product.Title" class="form-control" readonly />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Description"> Description </label>
+                            <textarea asp-for="product.Description" rows="3" class="form-control" readonly></textarea>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.ISBN"> ISBN </label>
+                            <input asp-for="product.ISBN" class="form-control" readonly />
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Author"> Author </label>
+                            <input asp-for="product.Author" class="form-control" readonly />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Price"> Price </label>
+                            <input type="number" asp-for="product.Price" class="form-control" readonly />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.ListPrice"> ListPrice </label>
+                            <input type="number" asp-for="product.ListPrice" class="form-control" readonly />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.FinalPrice"> FinalPrice </label>
+                            <input type="number" asp-for="product.FinalPrice" class="form-control border-0" readonly />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Price50"> Price 50 </label>
+                            <input type="number" asp-for="product.Price50" class="form-control" readonly />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Price100"> Price 100 </label>
+                            <input type="number" asp-for="product.Price100" class="form-control" disabled />
+                            
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" asp-for="product.ImgUrl"> Img Url </label>
+                        <input type="file" name="file" class="form-control" id="uploadBox" readonly />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Category"> Category </label>
+                            <input type="text" asp-for="product.Category" class="form-control" disabled />
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.CoverType"> Cover Type </label>
+                            <input type="text" asp-for="product.CoverType" class="form-control" disabled />
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-end mt-2">
+                       
+                            <button class="btn btn-success me-2" type="submit" style="width:120px"> Delete </button>
+      
+                        <a class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Index" style="width:120px"> Back </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+    {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Please Upload Image...',
+
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    }

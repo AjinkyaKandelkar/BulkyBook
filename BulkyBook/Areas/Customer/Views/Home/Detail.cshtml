@@ -1,0 +1,79 @@
+﻿@model ShoppingCart 
+
+<form method="post">
+    <input asp-for="ProductId" hidden />
+    <div class="card container">
+        <div class="card-header bg-primary text-light row">
+            <div class="col-md-6">
+                <div class="fs-3">
+                    @Model.SLProduct.Title
+                </div> 
+                <div class="fs-5 text-warning">
+                    @Model.SLProduct.Author
+                </div>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end mt-2">
+                <button class="btn btn-warning" style="width:120px; height:50px ; border-radius:0;"> @Model.SLProduct.Category.Name </button>
+                <button class="btn btn-danger ms-2" style="width:120px; height:50px ;  border-radius:0;"> @Model.SLProduct.CoverType.Name </button>
+            </div>
+            
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+
+                        <div class="text-muted text-uppercase fs-5 mb-3"> ISBN : @Model.SLProduct.ISBN </div>
+                        <div class="text-muted text-uppercase mb-4"> List price : @Model.SLProduct.ListPrice.ToString("c") </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3 text-center">
+                            <div class="text-muted"> Quantity </div>
+                            <div class="text-danger"> price </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="text-muted"> 1-50 </div>
+                            <div class="text-danger"> @Model.SLProduct.FinalPrice.ToString("c") </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="text-muted"> 51-100 </div>
+                            <div class="text-danger"> @Model.SLProduct.Price50.ToString("c") </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="text-muted"> 100+ </div>
+                            <div class="text-danger"> @Model.SLProduct.Price100.ToString("c") </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-5">
+                            <div class="text-muted"> Description </div>
+                            <div>
+                                @Model.SLProduct.Description
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fs-4">
+                        <div class="fs-4 text-muted"> Count 
+                            <input asp-for="@Model.Count" class="form-control" type="number" value="@Model.Count" style="width:9rem" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class=""> 
+                        <img class="img-fluid border border-danger p-2" style="width:300px;" src="@Model.SLProduct.ImgUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row text-center">
+                <div class="col-sm-6">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-success p-3" style="width:25rem"> <i class="bi bi-arrow-left me-2"></i>  Back to the List </a>
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-primary p-3" type="submit" style="width:25rem"> <i class="bi bi-cart me-2"></i> Add tot cart </button>
+                </div>
+            </div>
+        </>
+    </div>
+</form>

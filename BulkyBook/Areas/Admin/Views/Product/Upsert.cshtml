@@ -1,0 +1,166 @@
+﻿@model BulkyBook.Models.ViewModels.ProductViewModel
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12">
+            <form method="post" asp-action="Upsert" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mt-4  text-center">
+                            <img src="@Model.product.ImgUrl" class="img-fluid border p-2" style="width:20rem" />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="border p-3 mt-4 row">
+                    <div class="row pb-2">
+                        <h2 class="text-primary"> @(Model.product.Id!=0?"Update":"Create") Product </h2>
+                    </div>
+                    <input asp-for="product.Id" hidden />
+                    <input asp-for="product.ImgUrl" hidden />
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Title"> Title </label>
+                            <input asp-for="product.Title" class="form-control" />
+                            <span asp-validation-for="product.Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Description"> Description </label>
+                            <textarea asp-for="product.Description" rows="3" class="form-control"></textarea>
+                            <span asp-validation-for="product.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.ISBN"> ISBN </label>
+                            <input asp-for="product.ISBN" class="form-control" />
+                            <span asp-validation-for="product.ISBN" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Author"> Author </label>
+                            <input asp-for="product.Author" class="form-control" />
+                            <span asp-validation-for="product.Author" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Price"> Price </label>
+                            <input type="number" asp-for="product.Price" class="form-control" />
+                            <span asp-validation-for="product.Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.ListPrice"> ListPrice </label>
+                            <input type="number" asp-for="product.ListPrice" class="form-control" />
+                            <span asp-validation-for="product.ListPrice" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                    <div class="mb-3">
+                    <label class="form-label" asp-for="product.FinalPrice"> FinalPrice </label>
+                    <input type="number" asp-for="product.FinalPrice" class="form-control" />
+                    <span asp-validation-for="product.FinalPrice" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Price50"> Price 50 </label>
+                            <input type="number" asp-for="product.Price50" class="form-control" />
+                            <span asp-validation-for="product.Price50" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.Price100"> Price 100 </label>
+                            <input type="number" asp-for="product.Price100" class="form-control" />
+                            <span asp-validation-for="product.Price100" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" asp-for="product.ImgUrl"> Img Url </label>
+                        <input type="file" name="file" class="form-control" id="uploadBox" />
+                    </div> 
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.CategoryId"> Category </label>
+                            <select class="form-select" asp-for="product.CategoryId" asp-items="@Model.CategoryList">
+                                <option disabled selected> --- Select ---- </option>
+
+                            </select>
+                            <span asp-validation-for="product.CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="product.CoverTypeId"> Cover Type </label>
+                            <select class="form-select" asp-for="product.CoverTypeId" asp-items="@Model.CoverTypeList">
+                                <option disabled selected> --- Select ---- </option>
+
+                            </select>
+                            <span asp-validation-for="product.CoverTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-end mt-2">
+                        @if(Model.product.Id !=0)
+                        {
+                            <button class="btn btn-success me-2" type="submit" style="width:120px"> Update </button>
+                        }
+                        else
+                        {
+                            <button class=" btn btn-success me-2" onclick="return validateInput()" type="submit" style="width:120px"> Add </button>
+
+                        }
+                        <a class="btn btn-warning" asp-area="Admin" asp-controller="Product" asp-action="Index" style="width:120px"> Back </a>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+            
+       
+
+@section Scripts
+    {
+        @{
+    <partial name="_ValidationScriptsPartial" />
+        }
+        <script>
+            function validateInput() 
+            {
+            if (document.getElementById("uploadBox").value == "") 
+            {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Please Upload Image...',
+                       
+                        });
+                        return false;
+            }
+                    return true;
+            }
+        </script>
+
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'bleofcontents footnotes mergetags autocorrect',
+                toolbar: ' checklist numlist bullist indent outdent ',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                    { value: 'First.Name', title: 'First Name' },
+                    { value: 'Email', title: 'Email' },
+                ]
+            });
+        </script>
+
+    }

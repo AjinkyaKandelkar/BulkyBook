@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row mt-4">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-2 col-md-4 col-4">
+            <a style="cursor:pointer; text-decoration:none" asp-action="Detail" asp-route-productId="@product.Id">
+                <div class="card p-2">
+                    <div class="img-top ">
+                        <img src="@product.ImgUrl" class="img-fluid">
+                    </div>
+                    <div class="card-title">
+                        @product.Title.Substring(0,22)..
+                        
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div>  @product.ListPrice.ToString("C") </div>
+                            <div> @product.FinalPrice.ToString("C") </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+    }
+</div>
